@@ -14,14 +14,4 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ProductController {
 
-    @Autowired
-    private ProductService productService;
-
-    @PostMapping(value = "/create")
-    public ResponseEntity<ProductResponseDTO> create(@RequestBody ProductRequestDTO request) {
-        Product product = productService.create(request);
-        ProductResponseDTO productResponseDTO = new ProductDTOMapper().mapDTO(product);
-        return ResponseEntity.ok().body(productResponseDTO);
-    }
-
 }
