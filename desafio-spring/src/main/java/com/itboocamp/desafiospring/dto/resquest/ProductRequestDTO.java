@@ -13,14 +13,13 @@ import java.math.BigDecimal;
 @Setter
 public class ProductRequestDTO {
 
-    private Long productId;
     private String name;
     private String category;
+    private String brand;
     private BigDecimal price;
     private Integer quantity;
     private Boolean freeShipping;
     private Double prestige;
-
 
 
 }

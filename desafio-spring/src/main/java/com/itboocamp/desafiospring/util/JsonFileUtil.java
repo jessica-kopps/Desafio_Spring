@@ -32,7 +32,7 @@ public class JsonFileUtil<T> {
 
         try {
             File file = new File(filename);
-            tList = (List<T>) objectMapper.readValue(file, new TypeReference<List<Product>>(){});
+            tList = objectMapper.readValue(file, new TypeReference<List<T>>(){});
         } catch (FileNotFoundException e){
             createFile();
         } catch (IOException e) {
