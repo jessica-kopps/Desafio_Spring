@@ -2,9 +2,11 @@ package com.itboocamp.desafiospring.repository;
 
 import com.itboocamp.desafiospring.entity.Product;
 import com.itboocamp.desafiospring.util.JsonFileUtil;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public class ProductRepository implements IRepository<Long, Product> {
     private static final String FILENAME = "arquivo.json";
     @Override
