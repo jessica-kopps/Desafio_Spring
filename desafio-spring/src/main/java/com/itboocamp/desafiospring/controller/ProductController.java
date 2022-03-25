@@ -1,5 +1,11 @@
 package com.itboocamp.desafiospring.controller;
 
+import com.itboocamp.desafiospring.controller.exception.DuplicateProductException;
+import com.itboocamp.desafiospring.controller.exception.ValidatorException;
+import com.itboocamp.desafiospring.controller.validator.IValidator;
+import com.itboocamp.desafiospring.controller.validator.product.CategoryProductValidator;
+import com.itboocamp.desafiospring.controller.validator.product.NameProductValidator;
+import com.itboocamp.desafiospring.controller.validator.product.QuantityProductValidator;
 import com.itboocamp.desafiospring.dto.mapper.ProductDTOMapper;
 import com.itboocamp.desafiospring.dto.response.ProductResponseDTO;
 import com.itboocamp.desafiospring.dto.resquest.ProductRequestDTO;
@@ -12,6 +18,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,9 +31,31 @@ public class ProductController {
     private ProductService productService;
 
     @PostMapping(value = "/create")
-    public ResponseEntity<ProductResponseDTO> create(@RequestBody ProductRequestDTO request) {
+    public ResponseEntity<ProductResponseDTO> create(@RequestBody ProductRequestDTO request) throws DuplicateProductException {
         Product product = productService.create(request);
         ProductResponseDTO productResponseDTO = new ProductDTOMapper().mapDTO(product);
+
+        Product productName = productService.findByName(request.getName());
+        Product productCategory = productService.findByCategory(request.getCategory());
+
+        if (productName != null && productCategory != null) {
+            throw new DuplicateProductException("Produto já cadastrados");
+        }
+
+        List<IValidator> validators = Arrays.asList(
+                new CategoryProductValidator(product),
+                new NameProductValidator(product),
+                new QuantityProductValidator(product)
+        );
+
+        validators.forEach(v -> {
+            try {
+                v.validator();
+            } catch (ValidatorException e) {
+                e.printStackTrace();
+            }
+        });
+
         return ResponseEntity.ok().body(productResponseDTO);
     }
 
@@ -32,11 +63,7 @@ public class ProductController {
     public ResponseEntity<List<ProductResponseDTO>> listProducts(){
         ProductDTOMapper mapper = new ProductDTOMapper();
 
-
         return ResponseEntity.ok().body(productService.listProducts().stream().map((p)->mapper.mapDTO(p)).collect(Collectors.toList()));
-
-
-
     }
 
 

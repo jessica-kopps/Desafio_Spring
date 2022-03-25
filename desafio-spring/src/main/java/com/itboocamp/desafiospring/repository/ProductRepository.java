@@ -5,6 +5,8 @@ import com.itboocamp.desafiospring.util.JsonFileUtil;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Locale;
+import java.util.stream.Collectors;
 
 @Repository
 public class ProductRepository implements IRepository<Long, Product> {
@@ -30,5 +32,19 @@ public class ProductRepository implements IRepository<Long, Product> {
     @Override
     public void deleteById(Long id) {
 
+    }
+
+    @Override
+    public Product findByName(String name) {
+        List<Product> products = findAll();
+        return  products.stream().filter(p -> p.getName().toLowerCase(Locale.ROOT)
+                .equalsIgnoreCase(name.toLowerCase(Locale.ROOT))).findFirst().orElse(null);
+    }
+
+    @Override
+    public Product findByCategory(String category) {
+        List<Product> products = findAll();
+        return  products.stream().filter(p -> p.getCategory().toLowerCase(Locale.ROOT)
+                .equalsIgnoreCase(category.toLowerCase(Locale.ROOT))).findFirst().orElse(null);
     }
 }

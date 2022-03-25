@@ -7,4 +7,6 @@ public interface IRepository  <U extends  Number, T>{
     List<T> findAll();
     T insert(T entity);
     void deleteById(U id);
+    T findByName(String name);
+    T findByCategory(String category);
 }

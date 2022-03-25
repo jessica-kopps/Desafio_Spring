@@ -4,6 +4,7 @@ import com.itboocamp.desafiospring.dto.resquest.ProductRequestDTO;
 import com.itboocamp.desafiospring.entity.Product;
 import com.itboocamp.desafiospring.entity.mapper.EntityMapper;
 import com.itboocamp.desafiospring.repository.ProductRepository;
+import com.itboocamp.desafiospring.controller.exception.DuplicateProductException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,14 @@ public class ProductService {
 
     public Product create(ProductRequestDTO request) {
         return productRepository.insert(new EntityMapper().mapDTO(request));
+    }
+
+    public Product findByName(String name) {
+        return productRepository.findByName(name);
+    }
+
+    public Product findByCategory(String category) {
+        return productRepository.findByCategory(category);
     }
 
     public List<Product> listProducts() {
