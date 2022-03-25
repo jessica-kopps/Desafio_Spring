@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.stream.Collectors;
 
 
@@ -28,5 +27,9 @@ public class ProductService {
         return productList.stream()
                 .filter(product -> product.getCategory().toLowerCase().equals(category.toLowerCase()))
                 .collect(Collectors.toList());
+    }
+
+    public List<Product> listProducts() {
+        return productRepository.findAll();
     }
 }

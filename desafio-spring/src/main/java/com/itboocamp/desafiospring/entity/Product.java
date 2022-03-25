@@ -5,6 +5,8 @@ import lombok.*;
 import java.math.BigDecimal;
 import java.util.Random;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 public class Product {
     private Long productId;
