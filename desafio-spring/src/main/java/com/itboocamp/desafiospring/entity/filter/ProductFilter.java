@@ -1,13 +1,15 @@
 package com.itboocamp.desafiospring.entity.filter;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 
 
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ProductFilter {
 
     private Long productId;

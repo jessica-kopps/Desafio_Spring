@@ -25,8 +25,21 @@ public class ProductService {
         return productRepository.insert(new EntityMapper().mapDTO(request));
     }
 
-    public List<Product> listProducts(ProductFilter filters) {
-        return filter(filters, productRepository.findAll());
+    public List<Product> listProducts(ProductFilter filters, String priceSort, String nameSort) {
+        List<Product> listProducts = filter(filters, productRepository.findAll());
+        if(priceSort!=null){
+            this.priceSort(listProducts, priceSort);
+        }
+        return listProducts;
+    }
+
+    private void priceSort(List<Product> listProducts, String priceSort) {
+        if(priceSort.equals("asc")){
+             listProducts.sort((a,b)->a.getPrice().compareTo(b.getPrice()));
+        }else if(priceSort.equals("dsc")){
+             listProducts.sort((b,a)->a.getPrice().compareTo(b.getPrice()));
+        }
+
     }
 
     private List<Product> filter (ProductFilter filter, List<Product> list) {
