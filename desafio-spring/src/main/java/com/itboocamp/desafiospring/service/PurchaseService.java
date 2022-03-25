@@ -1,5 +1,6 @@
 package com.itboocamp.desafiospring.service;
 
+import com.itboocamp.desafiospring.controller.exception.purchase.InsufficientQuantityException;
 import com.itboocamp.desafiospring.controller.exception.purchase.NotFoundException;
 import com.itboocamp.desafiospring.dto.mapper.ProductDTOMapper;
 import com.itboocamp.desafiospring.dto.response.ProductResponseDTO;
@@ -28,13 +29,23 @@ public class PurchaseService {
 
         BigDecimal totalPrice = BigDecimal.valueOf(0);
 
+
+
         for (ProductPurchaseRequestDTO productPurchase : productPurchaseRequestDTOList) {
             Product product = productRepository.findById(productPurchase.getProductId());
             if (product == null){
                 throw new NotFoundException("Product not found! Purchase declined.");
             }
-            products.add(product);
 
+            if (product.getQuantity() < productPurchase.getQuantity()) {
+                throw new InsufficientQuantityException("Insufficient product quantity! Purchase declined.");
+            }
+
+            product.setQuantity(product.getQuantity() - productPurchase.getQuantity());
+            productRepository.updateById(product.getProductId(), product);
+            product.setQuantity(productPurchase.getQuantity());
+
+            products.add(product);
             totalPrice = totalPrice.add(
                     BigDecimal.valueOf(productPurchase.getQuantity())
                             .multiply(product.getPrice()));

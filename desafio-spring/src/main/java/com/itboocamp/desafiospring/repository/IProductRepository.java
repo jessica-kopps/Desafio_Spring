@@ -10,4 +10,5 @@ public interface IProductRepository<U extends  Number, T>{
     T findByName(String name);
     T findByCategory(String category);
     T findByNameAndCategory(String name, String category);
+    T updateById(U id, T entity);
 }

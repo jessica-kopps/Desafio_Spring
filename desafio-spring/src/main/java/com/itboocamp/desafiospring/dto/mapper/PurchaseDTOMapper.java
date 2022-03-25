@@ -1,5 +1,6 @@
 package com.itboocamp.desafiospring.dto.mapper;
 
+import com.itboocamp.desafiospring.controller.exception.purchase.InsufficientQuantityException;
 import com.itboocamp.desafiospring.dto.response.ProductResponseDTO;
 import com.itboocamp.desafiospring.dto.response.PurchaseResponseDTO;
 import com.itboocamp.desafiospring.dto.resquest.ProductPurchaseRequestDTO;

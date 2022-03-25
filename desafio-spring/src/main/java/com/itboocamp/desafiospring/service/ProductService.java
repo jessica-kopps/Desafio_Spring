@@ -65,21 +65,19 @@ public class ProductService {
         }
         if (filter.getName() != null) {
             listFiltered = listFiltered.stream().filter(product -> {
-                return filter.getName().toUpperCase(Locale.ROOT).equals(product.getName().toUpperCase());
+                return product.getName().toUpperCase().contains(filter.getName().toUpperCase());
             }).collect(Collectors.toList());
             if (listFiltered.size() == 0) return listFiltered;
         }
         if (filter.getCategory() != null) {
             listFiltered = listFiltered.stream().filter(product -> {
-                return filter.getCategory().toUpperCase(Locale.ROOT).equals(product.getCategory().toUpperCase());
+                return product.getCategory().toUpperCase().contains(filter.getCategory().toUpperCase());
             }).collect(Collectors.toList());
             if (listFiltered.size() == 0) return listFiltered;
         }
         if (filter.getBrand() != null) {
             listFiltered = listFiltered.stream().filter(product -> {
-                String str1 = filter.getBrand().toUpperCase();
-                String str2 = product.getBrand().toUpperCase();
-                return str2.contains(str1);
+                return product.getBrand().toUpperCase().contains(filter.getBrand().toUpperCase());
             }).collect(Collectors.toList());
             if (listFiltered.size() == 0) return listFiltered;
         }
@@ -107,7 +105,6 @@ public class ProductService {
             }).collect(Collectors.toList());
             if (listFiltered.size() == 0) return listFiltered;
         }
-
         return listFiltered;
     }
 }
