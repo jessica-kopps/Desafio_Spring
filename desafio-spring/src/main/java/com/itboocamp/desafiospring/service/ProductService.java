@@ -53,17 +53,16 @@ public class ProductService {
 
 
     private List<Product> filter(ProductFilter filter, List<Product> list) {
-        List<Product> listFiltered = list;
+        filter.setProductsList(list);
+        filter.filterProductId()
+                .filterName()
+                .filterCategory()
+                .filterBrand()
+                .filterPrice()
+                .filterQuantity()
+                .filterFreeShipping()
+                .filterPrestige();
 
-        listFiltered = filter.filterProductId(listFiltered);
-        listFiltered = filter.filterName(listFiltered);
-        listFiltered = filter.filterCategory(listFiltered);
-        listFiltered = filter.filterBrand(listFiltered);
-        listFiltered = filter.filterPrice(listFiltered);
-        listFiltered = filter.filterQuantity(listFiltered);
-        listFiltered = filter.filterFreeShipping(listFiltered);
-        listFiltered = filter.filterPrestige(listFiltered);
-        
-        return listFiltered;
+        return filter.getProductsList();
     }
 }
