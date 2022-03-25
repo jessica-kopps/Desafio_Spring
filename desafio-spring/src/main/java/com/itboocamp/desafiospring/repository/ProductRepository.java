@@ -4,7 +4,9 @@ import com.itboocamp.desafiospring.entity.Product;
 import com.itboocamp.desafiospring.util.JsonFileUtil;
 import org.springframework.stereotype.Repository;
 
+import javax.swing.text.html.Option;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class ProductRepository implements IRepository<Long, Product> {
@@ -12,7 +14,10 @@ public class ProductRepository implements IRepository<Long, Product> {
 
     @Override
     public Product findById(Long id) {
-        return null;
+        JsonFileUtil<Product> jsonFile = new JsonFileUtil<Product>(FILENAME);
+        Optional<Product> productOptional = this.findAll().stream()
+                .filter(product -> product.getProductId().equals(id)).findFirst();
+        return productOptional.orElse(null);
     }
 
     @Override
