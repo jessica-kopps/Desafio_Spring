@@ -22,28 +22,37 @@ public class ProductService {
         return productRepository.insert(new EntityMapper().mapDTO(request));
     }
 
-    public List<Product> getProductsByCategory(String category){
-        List<Product> productList = productRepository.findAll();
-        return productList.stream()
-                .filter(product -> product.getCategory().equalsIgnoreCase(category))
-                .collect(Collectors.toList());
-    }
-
     public Product findByNameAndCategory(String name, String category) {
         return productRepository.findByNameAndCategory(name, category);
     }
 
-    public Product findByName(String name) {
-        return productRepository.findByName(name);
+    public List<Product> listProducts(ProductFilter filters, String priceSort, String nameSort) {
+        List<Product> listProducts = filter(filters, productRepository.findAll());
+        if(priceSort!=null){
+            this.priceSort(listProducts, priceSort);
+        }
+        if(nameSort!=null) {
+            this.nameSort(listProducts, nameSort);
+        }
+        return listProducts;
     }
 
-    public Product findByCategory(String category) {
-        return productRepository.findByCategory(category);
+    private void priceSort(List<Product> listProducts, String priceSort) {
+        if(priceSort.equals("asc")){
+             listProducts.sort((a,b)->a.getPrice().compareTo(b.getPrice()));
+        }else if(priceSort.equals("dsc")){
+             listProducts.sort((b,a)->a.getPrice().compareTo(b.getPrice()));
+        }
     }
 
-    public List<Product> listProducts(ProductFilter filters) {
-        return filter(filters, productRepository.findAll());
+    private void nameSort(List<Product> listProducts, String nameSort){
+        if(nameSort.equals("asc")){
+            listProducts.sort((a,b)->a.getName().compareToIgnoreCase(b.getName()));
+        } else if(nameSort.equals("dsc")){
+            listProducts.sort((b,a)->a.getName().compareToIgnoreCase(b.getName()));
+        }
     }
+
 
     private List<Product> filter (ProductFilter filter, List<Product> list) {
         List<Product> listFiltered = list;
