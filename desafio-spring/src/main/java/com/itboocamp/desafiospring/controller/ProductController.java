@@ -15,21 +15,22 @@ import java.util.stream.Collectors;
 
 @RestController
 public class ProductController {
-
     @Autowired
     private ProductService productService;
 
-    @PostMapping(value = "/create")
-    public ResponseEntity<ProductResponseDTO> create(@RequestBody ProductRequestDTO request) {
-        Product product = productService.create(request);
-        ProductResponseDTO productResponseDTO = new ProductDTOMapper().mapDTO(product);
-        return ResponseEntity.ok().body(productResponseDTO);
-    }
 
     @GetMapping("/listProducts")
     public ResponseEntity<List<ProductResponseDTO>> listProducts(ProductFilter filter){
         ProductDTOMapper mapper = new ProductDTOMapper();
         System.out.println(filter.toString());
         return ResponseEntity.ok().body(productService.listProducts(filter).stream().map((p)->mapper.mapDTO(p)).collect(Collectors.toList()));
+    }
+
+    @GetMapping("/listProducts")
+    public ResponseEntity<List<ProductResponseDTO>> listProductsByCategory(@RequestParam(name = "category") String category){
+        ProductDTOMapper mapper = new ProductDTOMapper();
+        return ResponseEntity.ok()
+                .body(productService.getProductsByCategory(category).stream().map(p -> mapper.mapDTO(p))
+                .collect(Collectors.toList()));
     }
 }
