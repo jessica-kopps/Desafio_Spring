@@ -2,7 +2,7 @@ package com.itboocamp.desafiospring.controller.validator.product;
 
 import com.itboocamp.desafiospring.controller.exception.ValidatorException;
 import com.itboocamp.desafiospring.controller.validator.IValidator;
-import com.itboocamp.desafiospring.dto.resquest.ProductRequestDTO;
+import com.itboocamp.desafiospring.dto.request.ProductRequestDTO;
 
 public class NameProductValidator implements IValidator {
     private ProductRequestDTO product;
@@ -14,7 +14,7 @@ public class NameProductValidator implements IValidator {
     @Override
     public void validator() throws ValidatorException {
         if(product.getName().isEmpty() || product.getName().length() <= 3) {
-            throw new ValidatorException("Campo nome precisa ser preenchido e conter mais de 3 caracteres.");
+            throw new ValidatorException("Name field must be filled in and contain more than 3 characters.");
         }
 
     }

@@ -2,15 +2,11 @@ package com.itboocamp.desafiospring.service;
 
 import com.itboocamp.desafiospring.controller.exception.purchase.InsufficientQuantityException;
 import com.itboocamp.desafiospring.controller.exception.purchase.NotFoundException;
-import com.itboocamp.desafiospring.dto.mapper.ProductDTOMapper;
-import com.itboocamp.desafiospring.dto.response.ProductResponseDTO;
-import com.itboocamp.desafiospring.dto.response.PurchaseResponseDTO;
-import com.itboocamp.desafiospring.dto.resquest.ProductPurchaseRequestDTO;
-import com.itboocamp.desafiospring.dto.resquest.PurchaseRequestDTO;
+import com.itboocamp.desafiospring.dto.request.ProductPurchaseRequestDTO;
+import com.itboocamp.desafiospring.dto.request.PurchaseRequestDTO;
 import com.itboocamp.desafiospring.entity.Product;
 import com.itboocamp.desafiospring.entity.Purchase;
-import com.itboocamp.desafiospring.entity.mapper.EntityMapper;
-import com.itboocamp.desafiospring.repository.ProductProductRepository;
+import com.itboocamp.desafiospring.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +17,7 @@ import java.util.List;
 @Service
 public class PurchaseService {
     @Autowired
-    private ProductProductRepository productRepository;
+    private ProductRepository productRepository;
 
     public Purchase getPurchase(PurchaseRequestDTO purchaseRequestDTO) {
         List<ProductPurchaseRequestDTO> productPurchaseRequestDTOList = purchaseRequestDTO.getArticlesPurchaseRequest();
@@ -29,11 +25,9 @@ public class PurchaseService {
 
         BigDecimal totalPrice = BigDecimal.valueOf(0);
 
-
-
         for (ProductPurchaseRequestDTO productPurchase : productPurchaseRequestDTOList) {
             Product product = productRepository.findById(productPurchase.getProductId());
-            if (product == null){
+            if (product == null) {
                 throw new NotFoundException("Product not found! Purchase declined.");
             }
 
@@ -50,6 +44,7 @@ public class PurchaseService {
                     BigDecimal.valueOf(productPurchase.getQuantity())
                             .multiply(product.getPrice()));
         }
+
         return new Purchase(products, totalPrice);
     }
 

@@ -1,4 +1,4 @@
-package com.itboocamp.desafiospring.dto.resquest;
+package com.itboocamp.desafiospring.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,6 +20,5 @@ public class ProductRequestDTO {
     private Integer quantity;
     private Boolean freeShipping;
     private Double prestige;
-
 
 }

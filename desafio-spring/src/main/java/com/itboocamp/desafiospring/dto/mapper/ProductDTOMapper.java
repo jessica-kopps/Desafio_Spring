@@ -1,16 +1,12 @@
 package com.itboocamp.desafiospring.dto.mapper;
 
 import com.itboocamp.desafiospring.dto.response.ProductResponseDTO;
-import com.itboocamp.desafiospring.dto.resquest.ProductPurchaseRequestDTO;
 import com.itboocamp.desafiospring.entity.Product;
-import com.itboocamp.desafiospring.repository.ProductProductRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ProductDTOMapper {
-    private final ProductProductRepository productRepository = new ProductProductRepository();
-
     public ProductResponseDTO mapDTO(Product entity) {
         return new ProductResponseDTO().builder()
                 .productId(entity.getProductId())

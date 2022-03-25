@@ -65,7 +65,7 @@ public class Product {
         long lowerLimit = 123456712L;
         long upperLimit = 234567892L;
         Random r = new Random();
-        return lowerLimit+((long)(r.nextDouble()*(upperLimit-lowerLimit)));
+        return lowerLimit + ((long) (r.nextDouble() * (upperLimit - lowerLimit)));
     }
 
 }

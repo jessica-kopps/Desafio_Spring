@@ -1,7 +1,6 @@
 package com.itboocamp.desafiospring.dto.response;
 
 import lombok.*;
-
 import java.math.BigDecimal;
 
 @AllArgsConstructor

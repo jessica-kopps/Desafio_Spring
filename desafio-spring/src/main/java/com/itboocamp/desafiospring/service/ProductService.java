@@ -1,22 +1,21 @@
 package com.itboocamp.desafiospring.service;
 
-import com.itboocamp.desafiospring.dto.resquest.ProductRequestDTO;
+import com.itboocamp.desafiospring.dto.request.ProductRequestDTO;
 import com.itboocamp.desafiospring.entity.Product;
 import com.itboocamp.desafiospring.entity.filter.ProductFilter;
 import com.itboocamp.desafiospring.entity.mapper.EntityMapper;
-import com.itboocamp.desafiospring.repository.ProductProductRepository;
+import com.itboocamp.desafiospring.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.stream.Collectors;
 
 
 @Service
 public class ProductService {
     @Autowired
-    private ProductProductRepository productRepository;
+    private ProductRepository productRepository;
 
     public Product create(ProductRequestDTO request) {
         return productRepository.insert(new EntityMapper().mapDTO(request));
@@ -28,40 +27,40 @@ public class ProductService {
 
     public List<Product> listProducts(ProductFilter filters, String priceSort, String nameSort) {
         List<Product> listProducts = filter(filters, productRepository.findAll());
-        if(priceSort!=null){
+        if (priceSort != null) {
             this.priceSort(listProducts, priceSort);
         }
-        if(nameSort!=null) {
+        if (nameSort != null) {
             this.nameSort(listProducts, nameSort);
         }
         return listProducts;
     }
 
     private void priceSort(List<Product> listProducts, String priceSort) {
-        if(priceSort.equals("asc")){
-             listProducts.sort((a,b)->a.getPrice().compareTo(b.getPrice()));
-        }else if(priceSort.equals("dsc")){
-             listProducts.sort((b,a)->a.getPrice().compareTo(b.getPrice()));
+        if (priceSort.equals("asc")) {
+            listProducts.sort((a, b) -> a.getPrice().compareTo(b.getPrice()));
+        } else if (priceSort.equals("dsc")) {
+            listProducts.sort((b, a) -> a.getPrice().compareTo(b.getPrice()));
         }
     }
 
-    private void nameSort(List<Product> listProducts, String nameSort){
-        if(nameSort.equals("asc")){
-            listProducts.sort((a,b)->a.getName().compareToIgnoreCase(b.getName()));
-        } else if(nameSort.equals("dsc")){
-            listProducts.sort((b,a)->a.getName().compareToIgnoreCase(b.getName()));
+    private void nameSort(List<Product> listProducts, String nameSort) {
+        if (nameSort.equals("asc")) {
+            listProducts.sort((a, b) -> a.getName().compareToIgnoreCase(b.getName()));
+        } else if (nameSort.equals("dsc")) {
+            listProducts.sort((b, a) -> a.getName().compareToIgnoreCase(b.getName()));
         }
     }
 
 
-    private List<Product> filter (ProductFilter filter, List<Product> list) {
+    private List<Product> filter(ProductFilter filter, List<Product> list) {
         List<Product> listFiltered = list;
 
         if (filter.getProductId() != null) {
             listFiltered = list.stream().filter(product -> {
                 return filter.getProductId() == product.getProductId();
             }).collect(Collectors.toList());
-              if (listFiltered.size() == 0) return listFiltered;
+            if (listFiltered.size() == 0) return listFiltered;
         }
         if (filter.getName() != null) {
             listFiltered = listFiltered.stream().filter(product -> {

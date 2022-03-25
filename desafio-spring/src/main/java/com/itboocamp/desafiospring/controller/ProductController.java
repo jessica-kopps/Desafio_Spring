@@ -1,6 +1,5 @@
 package com.itboocamp.desafiospring.controller;
 
-import com.itboocamp.desafiospring.entity.mapper.EntityMapper;
 import org.springframework.web.util.UriComponentsBuilder;
 import com.itboocamp.desafiospring.controller.exception.product.DuplicateProductException;
 import com.itboocamp.desafiospring.controller.validator.IValidator;
@@ -9,7 +8,7 @@ import com.itboocamp.desafiospring.controller.validator.product.NameProductValid
 import com.itboocamp.desafiospring.controller.validator.product.QuantityProductValidator;
 import com.itboocamp.desafiospring.dto.mapper.ProductDTOMapper;
 import com.itboocamp.desafiospring.dto.response.ProductResponseDTO;
-import com.itboocamp.desafiospring.dto.resquest.ProductRequestDTO;
+import com.itboocamp.desafiospring.dto.request.ProductRequestDTO;
 import com.itboocamp.desafiospring.entity.Product;
 import com.itboocamp.desafiospring.entity.filter.ProductFilter;
 import com.itboocamp.desafiospring.service.ProductService;
@@ -21,14 +20,14 @@ import java.net.URI;
 import java.util.Arrays;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
+@RequestMapping(value = "products")
 public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @PostMapping(value = "/create")
+    @PostMapping(value = "/")
     public ResponseEntity<ProductResponseDTO> create(@RequestBody ProductRequestDTO request, UriComponentsBuilder uriBuilder) {
         List<IValidator> validators = Arrays.asList(
                 new CategoryProductValidator(request),
@@ -36,21 +35,18 @@ public class ProductController {
                 new QuantityProductValidator(request)
         );
 
-        validators.forEach(v -> {
-           v.validator();
-        });
-
+        validators.forEach(v -> v.validator());
         Product productAlreadyExist = productService.findByNameAndCategory(request.getName(), request.getCategory());
 
         if (productAlreadyExist != null) {
-            throw new DuplicateProductException("Produto já cadastrado.");
+            throw new DuplicateProductException("Product already registered.");
         }
 
         Product product = productService.create(request);
         ProductResponseDTO productResponseDTO = new ProductDTOMapper().mapDTO(product);
 
         URI uri = uriBuilder
-                .path("/product/{id}")
+                .path("{id}")
                 .buildAndExpand(product.getProductId())
                 .toUri();
 
@@ -58,7 +54,7 @@ public class ProductController {
     }
 
 
-    @GetMapping("/listProducts")
+    @GetMapping("/")
     public ResponseEntity<List<ProductResponseDTO>> listProducts(@RequestParam(required = false) Long id,
                                                                  @RequestParam(required = false) String name,
                                                                  @RequestParam(required = false) String category,

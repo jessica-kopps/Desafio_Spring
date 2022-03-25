@@ -1,6 +1,5 @@
-package com.itboocamp.desafiospring.dto.resquest;
+package com.itboocamp.desafiospring.dto.request;
 
-import com.itboocamp.desafiospring.dto.resquest.ProductRequestDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

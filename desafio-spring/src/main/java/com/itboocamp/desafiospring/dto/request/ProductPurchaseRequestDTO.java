@@ -1,4 +1,4 @@
-package com.itboocamp.desafiospring.dto.resquest;
+package com.itboocamp.desafiospring.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
