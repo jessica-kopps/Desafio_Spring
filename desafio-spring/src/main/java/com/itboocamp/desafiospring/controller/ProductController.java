@@ -26,11 +26,11 @@ public class ProductController {
         return ResponseEntity.ok().body(productService.listProducts(filter).stream().map((p)->mapper.mapDTO(p)).collect(Collectors.toList()));
     }
 
-    @GetMapping("/listProducts")
-    public ResponseEntity<List<ProductResponseDTO>> listProductsByCategory(@RequestParam(name = "category") String category){
-        ProductDTOMapper mapper = new ProductDTOMapper();
-        return ResponseEntity.ok()
-                .body(productService.getProductsByCategory(category).stream().map(p -> mapper.mapDTO(p))
-                .collect(Collectors.toList()));
-    }
+//    @GetMapping("/listProducts")
+//    public ResponseEntity<List<ProductResponseDTO>> listProductsByCategory(@RequestParam(name = "category") String category){
+//        ProductDTOMapper mapper = new ProductDTOMapper();
+//        return ResponseEntity.ok()
+//                .body(productService.getProductsByCategory(category).stream().map(p -> mapper.mapDTO(p))
+//                .collect(Collectors.toList()));
+//    }
 }
