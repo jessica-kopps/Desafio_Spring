@@ -56,54 +56,15 @@ public class ProductService {
     private List<Product> filter(ProductFilter filter, List<Product> list) {
         List<Product> listFiltered = list;
 
-        if (filter.getProductId() != null) {
-            listFiltered = list.stream().filter(product -> {
-                return filter.getProductId() == product.getProductId();
-            }).collect(Collectors.toList());
-            if (listFiltered.size() == 0) return listFiltered;
-        }
-        if (filter.getName() != null) {
-            listFiltered = listFiltered.stream().filter(product -> {
-                return product.getName().toUpperCase().contains(filter.getName().toUpperCase());
-            }).collect(Collectors.toList());
-            if (listFiltered.size() == 0) return listFiltered;
-        }
-        if (filter.getCategory() != null) {
-            listFiltered = listFiltered.stream().filter(product -> {
-                return product.getCategory().toUpperCase().contains(filter.getCategory().toUpperCase());
-            }).collect(Collectors.toList());
-            if (listFiltered.size() == 0) return listFiltered;
-        }
-        if (filter.getBrand() != null) {
-            listFiltered = listFiltered.stream().filter(product -> {
-                return product.getBrand().toUpperCase().contains(filter.getBrand().toUpperCase());
-            }).collect(Collectors.toList());
-            if (listFiltered.size() == 0) return listFiltered;
-        }
-        if (filter.getPrice() != null) {
-            listFiltered = listFiltered.stream().filter(product -> {
-                return filter.getPrice() == product.getPrice();
-            }).collect(Collectors.toList());
-            if (listFiltered.size() == 0) return listFiltered;
-        }
-        if (filter.getQuantity() != null) {
-            listFiltered = listFiltered.stream().filter(product -> {
-                return filter.getQuantity() == product.getQuantity();
-            }).collect(Collectors.toList());
-            if (listFiltered.size() == 0) return listFiltered;
-        }
-        if (filter.getFreeShipping() != null) {
-            listFiltered = listFiltered.stream().filter(product -> {
-                return filter.getFreeShipping() == product.getFreeShipping();
-            }).collect(Collectors.toList());
-            if (listFiltered.size() == 0) return listFiltered;
-        }
-        if (filter.getPrestige() != null) {
-            listFiltered = listFiltered.stream().filter(product -> {
-                return filter.getPrestige() == product.getPrestige();
-            }).collect(Collectors.toList());
-            if (listFiltered.size() == 0) return listFiltered;
-        }
+        listFiltered = filter.filterProductId(listFiltered);
+        listFiltered = filter.filterName(listFiltered);
+        listFiltered = filter.filterCategory(listFiltered);
+        listFiltered = filter.filterBrand(listFiltered);
+        listFiltered = filter.filterPrice(listFiltered);
+        listFiltered = filter.filterQuantity(listFiltered);
+        listFiltered = filter.filterFreeShipping(listFiltered);
+        listFiltered = filter.filterPrestige(listFiltered);
+        
         return listFiltered;
     }
 }
