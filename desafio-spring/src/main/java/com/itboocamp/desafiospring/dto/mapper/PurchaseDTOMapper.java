@@ -6,9 +6,7 @@ import com.itboocamp.desafiospring.dto.resquest.ProductPurchaseRequestDTO;
 import com.itboocamp.desafiospring.dto.resquest.PurchaseRequestDTO;
 import com.itboocamp.desafiospring.entity.Product;
 import com.itboocamp.desafiospring.repository.ProductRepository;
-import com.itboocamp.desafiospring.service.exception.product.NotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.client.HttpClientErrorException;
+import com.itboocamp.desafiospring.controller.exception.purchase.NotFoundException;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

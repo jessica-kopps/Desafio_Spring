@@ -17,6 +17,10 @@ public class ProductDTOMapper {
                 .prestige(entity.getPrestige()).build();
     }
 
+    public Product mapEntity(ProductResponseDTO productResponseDTO) {
+        return null;
+    }
+
 
 }
 

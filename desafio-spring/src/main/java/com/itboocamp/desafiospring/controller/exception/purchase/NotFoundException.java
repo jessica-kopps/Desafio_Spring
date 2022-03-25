@@ -1,4 +1,4 @@
-package com.itboocamp.desafiospring.service.exception.product;
+package com.itboocamp.desafiospring.controller.exception.purchase;
 
 public class NotFoundException extends RuntimeException {
     public NotFoundException(String message) {
