@@ -15,5 +15,4 @@ public class EntityMapper {
                 productRequestDTO.getFreeShipping(),
                 productRequestDTO.getPrestige());
     }
-
 }

@@ -26,10 +26,5 @@ public class ProductDTOMapper {
     public List<ProductResponseDTO> mapDTO(List<Product> products){
         return products.stream().map((p)->this.mapDTO(p)).collect(Collectors.toList());
     }
-
-    public Product mapEntity(ProductPurchaseRequestDTO productPurchaseDTO) {
-        Product product = productRepository.findById(productPurchaseDTO.getProductId());
-        return product;
-    }
 }
 
