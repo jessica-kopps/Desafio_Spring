@@ -15,15 +15,23 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
+import java.util.stream.Collectors;
+
 
 @Service
 public class ProductService {
-
     @Autowired
-    private ProductRepository productRepository;
+    private ProductRepository  productRepository;
 
     public Product create(ProductRequestDTO request) {
         return productRepository.insert(new EntityMapper().mapDTO(request));
+    }
+
+    public List<Product> getProductsByCategory(String category){
+        List<Product> productList = productRepository.findAll();
+        return productList.stream()
+                .filter(product -> product.getCategory().equalsIgnoreCase(category))
+                .collect(Collectors.toList());
     }
 
     public Product findByName(String name) {
@@ -40,7 +48,6 @@ public class ProductService {
 
     private List<Product> filter (ProductFilter filter, List<Product> list) {
         List<Product> listFiltered = list;
-
 
         if (filter.getProductId() != null) {
             listFiltered = list.stream().filter(product -> {
@@ -95,5 +102,4 @@ public class ProductService {
 
         return listFiltered;
     }
-
 }
