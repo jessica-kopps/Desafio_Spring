@@ -25,30 +25,29 @@ public class ProductService {
         return productRepository.findByNameAndCategory(name, category);
     }
 
-    public List<Product> listProducts(ProductFilter filters, String priceSort, String nameSort) {
+    public List<Product> listProducts(ProductFilter filters, Integer sort) {
         List<Product> listProducts = filter(filters, productRepository.findAll());
-        if (priceSort != null) {
-            this.priceSort(listProducts, priceSort);
+        if (sort != null) {
+            this.sort(listProducts, sort);
         }
-        if (nameSort != null) {
-            this.nameSort(listProducts, nameSort);
-        }
+
         return listProducts;
     }
 
-    private void priceSort(List<Product> listProducts, String priceSort) {
-        if (priceSort.equals("asc")) {
-            listProducts.sort((a, b) -> a.getPrice().compareTo(b.getPrice()));
-        } else if (priceSort.equals("dsc")) {
-            listProducts.sort((b, a) -> a.getPrice().compareTo(b.getPrice()));
-        }
-    }
-
-    private void nameSort(List<Product> listProducts, String nameSort) {
-        if (nameSort.equals("asc")) {
-            listProducts.sort((a, b) -> a.getName().compareToIgnoreCase(b.getName()));
-        } else if (nameSort.equals("dsc")) {
-            listProducts.sort((b, a) -> a.getName().compareToIgnoreCase(b.getName()));
+    private void sort(List<Product> listProducts, Integer sort) {
+        switch (sort) {
+            case 0:
+                listProducts.sort((a, b) -> a.getName().compareToIgnoreCase(b.getName()));
+                break;
+            case 1:
+                listProducts.sort((b, a) -> a.getName().compareToIgnoreCase(b.getName()));
+                break;
+            case 2:
+                listProducts.sort((b, a) -> a.getPrice().compareTo(b.getPrice()));
+                break;
+            case 3:
+                listProducts.sort((a, b) -> a.getPrice().compareTo(b.getPrice()));
+                break;
         }
     }
 
