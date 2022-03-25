@@ -2,10 +2,12 @@ package com.itboocamp.desafiospring.util;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.CollectionType;
 import com.itboocamp.desafiospring.entity.Product;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class JsonFileUtil<T> {
@@ -26,13 +28,18 @@ public class JsonFileUtil<T> {
         }
     }
 
-    public List<T> read(){
+    public List<T> read(Class<T> elementClass){
         ObjectMapper objectMapper = new ObjectMapper();
         List<T> tList = new ArrayList<>();
 
         try {
             File file = new File(filename);
-            tList = objectMapper.readValue(file, new TypeReference<List<T>>(){});
+            //tList = objectMapper.readValue(file, new TypeReference<List<T>>(){});
+            CollectionType listType =
+                    objectMapper.getTypeFactory().constructCollectionType(ArrayList.class, elementClass);
+            return objectMapper.readValue(file, listType);
+
+
         } catch (FileNotFoundException e){
             createFile();
         } catch (IOException e) {
@@ -41,9 +48,9 @@ public class JsonFileUtil<T> {
         return tList;
     }
 
-    public T append(T t){
+    public T append(T t, Class<T> elementClass){
         ObjectMapper objectMapper = new ObjectMapper();
-        List<T> tList = this.read();
+        List<T> tList = this.read(elementClass);
         tList.add(t);
 
         try {
