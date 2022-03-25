@@ -27,7 +27,7 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @PostMapping(value = "/")
+    @PostMapping
     public ResponseEntity<ProductResponseDTO> create(@RequestBody ProductRequestDTO request, UriComponentsBuilder uriBuilder) {
         List<IValidator> validators = Arrays.asList(
                 new CategoryProductValidator(request),
@@ -54,7 +54,7 @@ public class ProductController {
     }
 
 
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<List<ProductResponseDTO>> listProducts(@RequestParam(required = false) Long id,
                                                                  @RequestParam(required = false) String name,
                                                                  @RequestParam(required = false) String category,
@@ -63,11 +63,10 @@ public class ProductController {
                                                                  @RequestParam(required = false) Integer quantity,
                                                                  @RequestParam(required = false) Boolean freeShipping,
                                                                  @RequestParam(required = false) Double prestige,
-                                                                 @RequestParam(required = false) String priceSort,
-                                                                 @RequestParam(required = false) String nameSort) {
+                                                                 @RequestParam(required = false) Integer sort) {
         ProductFilter productFilter = ProductFilter.builder().productId(id).name(name).category(category).brand(brand).price(price)
                 .quantity(quantity).freeShipping(freeShipping).prestige(prestige).build();
         ProductDTOMapper mapper = new ProductDTOMapper();
-        return ResponseEntity.ok().body(mapper.mapDTO(productService.listProducts(productFilter, priceSort, nameSort)));
+        return ResponseEntity.ok().body(mapper.mapDTO(productService.listProducts(productFilter, sort)));
     }
 }
