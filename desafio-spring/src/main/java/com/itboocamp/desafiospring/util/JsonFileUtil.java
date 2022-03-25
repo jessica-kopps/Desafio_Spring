@@ -60,4 +60,15 @@ public class JsonFileUtil<T> {
         }
         return t;
     }
+
+    public List<T> update(List<T> newList) {
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        try {
+            objectMapper.writeValue(new File(filename), newList);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return newList;
+    }
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 
 @Repository
@@ -37,6 +38,20 @@ public class ProductRepository implements IRepository<Long, Product> {
     public void deleteById(Long id) {
 
     }
+
+    @Override
+    public Product updateById(Long id, Product product) {
+        JsonFileUtil<Product> jsonFile = new JsonFileUtil<Product>(FILENAME);
+        List<Product> listUpdated = this.findAll().stream()
+                .map(p -> {
+                    if(p.getProductId().equals(product.getProductId())) return product;
+                    return p;
+                }).collect(Collectors.toList());
+        jsonFile.update(listUpdated);
+        return product;
+    }
+
+
 
     @Override
     public Product findByName(String name) {

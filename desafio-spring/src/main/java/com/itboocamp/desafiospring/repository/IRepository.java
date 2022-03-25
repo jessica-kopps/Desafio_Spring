@@ -9,4 +9,5 @@ public interface IRepository  <U extends  Number, T>{
     void deleteById(U id);
     T findByName(String name);
     T findByCategory(String category);
+    T updateById(U id, T entity);
 }

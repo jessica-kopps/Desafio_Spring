@@ -1,5 +1,6 @@
 package com.itboocamp.desafiospring.dto.mapper;
 
+import com.itboocamp.desafiospring.controller.exception.purchase.InsufficientQuantityException;
 import com.itboocamp.desafiospring.dto.response.ProductResponseDTO;
 import com.itboocamp.desafiospring.dto.response.PurchaseResponseDTO;
 import com.itboocamp.desafiospring.dto.resquest.ProductPurchaseRequestDTO;
@@ -28,12 +29,26 @@ public class PurchaseDTOMapper {
             if (product == null){
                 throw new NotFoundException("Product not found! Purchase declined.");
             }
+
+            // updating storage
+            if (product.getQuantity() < productPurchase.getQuantity()) {
+                throw new InsufficientQuantityException("Insufficient product quantity! Purchase declined.");
+            }
+            product.setQuantity(product.getQuantity() - productPurchase.getQuantity());
+            productRepository.updateById(product.getProductId(), product);
+            product.setQuantity(productPurchase.getQuantity());
+            //
+
+
+
             ProductResponseDTO productResponseDTO = productDTOMapper.mapDTO(product);
             productResponseDTOList.add(productResponseDTO);
 
             totalPrice = totalPrice.add(
                     BigDecimal.valueOf(productResponseDTO.getQuantity())
                     .multiply(productResponseDTO.getPrice()));
+
+
         }
 
         return new PurchaseResponseDTO(productResponseDTOList, totalPrice);
