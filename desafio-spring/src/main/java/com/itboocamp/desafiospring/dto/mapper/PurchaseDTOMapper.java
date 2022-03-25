@@ -5,7 +5,7 @@ import com.itboocamp.desafiospring.dto.response.PurchaseResponseDTO;
 import com.itboocamp.desafiospring.dto.resquest.ProductPurchaseRequestDTO;
 import com.itboocamp.desafiospring.dto.resquest.PurchaseRequestDTO;
 import com.itboocamp.desafiospring.entity.Product;
-import com.itboocamp.desafiospring.repository.ProductRepository;
+import com.itboocamp.desafiospring.repository.ProductProductRepository;
 import com.itboocamp.desafiospring.controller.exception.purchase.NotFoundException;
 
 import java.math.BigDecimal;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PurchaseDTOMapper {
-    private ProductRepository productRepository = new ProductRepository();
+    private ProductProductRepository productRepository = new ProductProductRepository();
 
     public PurchaseResponseDTO mapDTO(PurchaseRequestDTO purchaseRequestDTO) {
         ProductDTOMapper productDTOMapper = new ProductDTOMapper();

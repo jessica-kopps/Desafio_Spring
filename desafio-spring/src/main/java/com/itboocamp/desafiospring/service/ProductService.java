@@ -4,24 +4,19 @@ import com.itboocamp.desafiospring.dto.resquest.ProductRequestDTO;
 import com.itboocamp.desafiospring.entity.Product;
 import com.itboocamp.desafiospring.entity.filter.ProductFilter;
 import com.itboocamp.desafiospring.entity.mapper.EntityMapper;
-import com.itboocamp.desafiospring.repository.ProductRepository;
-import com.itboocamp.desafiospring.controller.exception.DuplicateProductException;
+import com.itboocamp.desafiospring.repository.ProductProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
-import java.util.stream.Collectors;
 import java.util.stream.Collectors;
 
 
 @Service
 public class ProductService {
     @Autowired
-    private ProductRepository  productRepository;
+    private ProductProductRepository productRepository;
 
     public Product create(ProductRequestDTO request) {
         return productRepository.insert(new EntityMapper().mapDTO(request));
@@ -32,6 +27,10 @@ public class ProductService {
         return productList.stream()
                 .filter(product -> product.getCategory().equalsIgnoreCase(category))
                 .collect(Collectors.toList());
+    }
+
+    public Product findByNameAndCategory(String name, String category) {
+        return productRepository.findByNameAndCategory(name, category);
     }
 
     public Product findByName(String name) {

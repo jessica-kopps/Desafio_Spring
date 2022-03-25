@@ -1,6 +1,6 @@
 package com.itboocamp.desafiospring.controller.exception;
 
-public class ValidatorException extends Exception{
+public class ValidatorException extends RuntimeException{
 
     private static final long serialVersionUID = 8514406528027778757L;
 

@@ -1,6 +1,6 @@
-package com.itboocamp.desafiospring.controller.exception;
+package com.itboocamp.desafiospring.controller.exception.product;
 
-public class DuplicateProductException extends Exception{
+public class DuplicateProductException extends RuntimeException{
 
     private static final long serialVersionUID = 8514406528027778757L;
 

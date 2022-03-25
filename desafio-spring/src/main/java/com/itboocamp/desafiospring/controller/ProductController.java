@@ -1,7 +1,8 @@
 package com.itboocamp.desafiospring.controller;
 
-import com.itboocamp.desafiospring.controller.exception.DuplicateProductException;
-import com.itboocamp.desafiospring.controller.exception.ValidatorException;
+import com.itboocamp.desafiospring.entity.mapper.EntityMapper;
+import org.springframework.web.util.UriComponentsBuilder;
+import com.itboocamp.desafiospring.controller.exception.product.DuplicateProductException;
 import com.itboocamp.desafiospring.controller.validator.IValidator;
 import com.itboocamp.desafiospring.controller.validator.product.CategoryProductValidator;
 import com.itboocamp.desafiospring.controller.validator.product.NameProductValidator;
@@ -16,8 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
+import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,34 +27,33 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-
     @PostMapping(value = "/create")
-    public ResponseEntity<ProductResponseDTO> create(@RequestBody ProductRequestDTO request) throws DuplicateProductException {
-        Product product = productService.create(request);
-        ProductResponseDTO productResponseDTO = new ProductDTOMapper().mapDTO(product);
-
-        Product productName = productService.findByName(request.getName());
-        Product productCategory = productService.findByCategory(request.getCategory());
-
-        if (productName != null && productCategory != null) {
-            throw new DuplicateProductException("Produto já cadastrados");
-        }
-
+    public ResponseEntity<ProductResponseDTO> create(@RequestBody ProductRequestDTO request, UriComponentsBuilder uriBuilder) {
         List<IValidator> validators = Arrays.asList(
-                new CategoryProductValidator(product),
-                new NameProductValidator(product),
-                new QuantityProductValidator(product)
+                new CategoryProductValidator(request),
+                new NameProductValidator(request),
+                new QuantityProductValidator(request)
         );
 
         validators.forEach(v -> {
-            try {
-                v.validator();
-            } catch (ValidatorException e) {
-                e.printStackTrace();
-            }
+           v.validator();
         });
 
-        return ResponseEntity.ok().body(productResponseDTO);
+        Product productAlreadyExist = productService.findByNameAndCategory(request.getName(), request.getCategory());
+
+        if (productAlreadyExist != null) {
+            throw new DuplicateProductException("Produto já cadastrado.");
+        }
+
+        Product product = productService.create(request);
+        ProductResponseDTO productResponseDTO = new ProductDTOMapper().mapDTO(product);
+
+        URI uri = uriBuilder
+                .path("/product/{id}")
+                .buildAndExpand(product.getProductId())
+                .toUri();
+
+        return ResponseEntity.created(uri).body(productResponseDTO);
     }
 
 
