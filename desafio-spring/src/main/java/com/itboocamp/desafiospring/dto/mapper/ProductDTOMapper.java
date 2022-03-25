@@ -3,6 +3,9 @@ package com.itboocamp.desafiospring.dto.mapper;
 import com.itboocamp.desafiospring.dto.response.ProductResponseDTO;
 import com.itboocamp.desafiospring.entity.Product;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class ProductDTOMapper {
 
     public ProductResponseDTO mapDTO(Product entity) {
@@ -15,6 +18,10 @@ public class ProductDTOMapper {
                 .quantity(entity.getQuantity())
                 .freeShipping(entity.getFreeShipping())
                 .prestige(entity.getPrestige()).build();
+    }
+
+    public List<ProductResponseDTO> mapDTO(List<Product> products){
+        return products.stream().map((p)->this.mapDTO(p)).collect(Collectors.toList());
     }
 
 

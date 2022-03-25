@@ -33,7 +33,7 @@ public class ProductController {
         ProductDTOMapper mapper = new ProductDTOMapper();
 
 
-        return ResponseEntity.ok().body(productService.listProducts().stream().map((p)->mapper.mapDTO(p)).collect(Collectors.toList()));
+        return ResponseEntity.ok().body(mapper.mapDTO(productService.listProducts()));
 
 
 
