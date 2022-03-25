@@ -8,9 +8,6 @@ import com.itboocamp.desafiospring.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -30,6 +27,9 @@ public class ProductService {
         if(priceSort!=null){
             this.priceSort(listProducts, priceSort);
         }
+        if(nameSort!=null) {
+            this.nameSort(listProducts, nameSort);
+        }
         return listProducts;
     }
 
@@ -41,6 +41,15 @@ public class ProductService {
         }
 
     }
+
+    private void nameSort(List<Product> listProducts, String nameSort){
+        if(nameSort.equals("asc")){
+            listProducts.sort((a,b)->a.getName().compareToIgnoreCase(b.getName()));
+        } else if(nameSort.equals("dsc")){
+            listProducts.sort((b,a)->a.getName().compareToIgnoreCase(b.getName()));
+        }
+    }
+
 
     private List<Product> filter (ProductFilter filter, List<Product> list) {
         List<Product> listFiltered = list;
