@@ -15,9 +15,8 @@ public class ProductRepository implements IRepository<Long, Product> {
     @Override
     public Product findById(Long id) {
         JsonFileUtil<Product> jsonFile = new JsonFileUtil<Product>(FILENAME);
-        Optional<Product> productOptional = jsonFile.read().stream()
-                .filter(product -> product.getProductId() == id)
-                .findFirst();
+        Optional<Product> productOptional = this.findAll().stream()
+                .filter(product -> product.getProductId().equals(id)).findFirst();
         return productOptional.orElse(null);
     }
 
