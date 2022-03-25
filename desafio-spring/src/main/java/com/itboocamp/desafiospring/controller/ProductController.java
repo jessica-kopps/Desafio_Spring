@@ -7,10 +7,7 @@ import com.itboocamp.desafiospring.entity.Product;
 import com.itboocamp.desafiospring.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,21 +17,18 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @PostMapping(value = "/create")
-    public ResponseEntity<ProductResponseDTO> create(@RequestBody ProductRequestDTO request) {
-        Product product = productService.create(request);
-        ProductResponseDTO productResponseDTO = new ProductDTOMapper().mapDTO(product);
-        return ResponseEntity.ok().body(productResponseDTO);
-    }
 
     @GetMapping("/listProducts")
     public ResponseEntity<List<ProductResponseDTO>> listProducts(){
         ProductDTOMapper mapper = new ProductDTOMapper();
-
-
         return ResponseEntity.ok().body(productService.listProducts().stream().map((p)->mapper.mapDTO(p)).collect(Collectors.toList()));
+    }
 
-
-
+    @GetMapping("/listProducts")
+    public ResponseEntity<List<ProductResponseDTO>> listProductsByCategory(@RequestParam(name = "category") String category){
+        ProductDTOMapper mapper = new ProductDTOMapper();
+        return ResponseEntity.ok()
+                .body(productService.getProductsByCategory(category).stream().map(p -> mapper.mapDTO(p))
+                .collect(Collectors.toList()));
     }
 }

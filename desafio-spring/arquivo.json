@@ -1,1 +1,152 @@
-[{"productId":1,"name":"Serra de Bancada","category":"Ferramentas","brand":"FORTGPRO","price":1800,"quantity":5,"freeShipping":true,"prestige":4.0},{"productId":2,"name":"Furadeira","category":"Ferramentas","brand":"Black & Decker","price":1800,"quantity":5,"freeShipping":true,"prestige":4.0},{"productId":3,"name":"Soldadora","category":"Ferramentas","brand":"Black & Decker","price":1800,"quantity":5,"freeShipping":true,"prestige":4.0},{"productId":4,"name":"Chuteira","category":"Esportes","brand":"Adidas","price":1800,"quantity":5,"freeShipping":true,"prestige":4.0},{"productId":5,"name":"Mini Cama Elastica","category":"Esportes","brand":"Starboard","price":1800,"quantity":5,"freeShipping":true,"prestige":4.0},{"productId":6,"name":"Camiseta","category":"Esportes","brand":"Topper","price":1800,"quantity":5,"freeShipping":true,"prestige":4.0},{"productId":7,"name":"Redmi Note 9","category":"Celulares","brand":"Xiaomi","price":1800,"quantity":5,"freeShipping":true,"prestige":4.0},{"productId":8,"name":"Smartwatch","category":"Celulares","brand":"Noga","price":1800,"quantity":5,"freeShipping":true,"prestige":4.0},{"productId":9,"name":"Camisa","category":"Roupas","brand":"Fila","price":1800,"quantity":5,"freeShipping":true,"prestige":4.0},{"productId":10,"name":"Calcas","category":"Roupas","brand":"Oakley","price":1800,"quantity":5,"freeShipping":true,"prestige":4.0},{"productId":11,"name":"Meias","category":"Roupas","brand":"Gonew","price":1800,"quantity":5,"freeShipping":true,"prestige":4.0},{"productId":12,"name":"Short","category":"Roupas","brand":"Lacoste","price":1800,"quantity":5,"freeShipping":true,"prestige":4.0},{"productId":216678900,"name":"Product 1","category":"category","brand":"brand 1","price":1100,"quantity":2,"freeShipping":true,"prestige":4.5},{"productId":212597662,"name":"Product X","category":"category","brand":"brand 1","price":1100,"quantity":2,"freeShipping":true,"prestige":4.5},{"productId":197426965,"name":"Product ASX","category":"category","brand":"brand 1","price":1100,"quantity":2,"freeShipping":true,"prestige":4.5}]
+[
+  {
+    "productId": 1,
+    "name": "Serra de Bancada",
+    "category": "Ferramentas",
+    "brand": "FORTGPRO",
+    "price": 1800,
+    "quantity": 5,
+    "freeShipping": true,
+    "prestige": 4.0
+  },
+  {
+    "productId": 2,
+    "name": "Furadeira",
+    "category": "Ferramentas",
+    "brand": "Black & Decker",
+    "price": 1800,
+    "quantity": 5,
+    "freeShipping": true,
+    "prestige": 4.0
+  },
+  {
+    "productId": 3,
+    "name": "Soldadora",
+    "category": "Ferramentas",
+    "brand": "Black & Decker",
+    "price": 1800,
+    "quantity": 5,
+    "freeShipping": true,
+    "prestige": 4.0
+  },
+  {
+    "productId": 4,
+    "name": "Chuteira",
+    "category": "Esportes",
+    "brand": "Adidas",
+    "price": 1800,
+    "quantity": 5,
+    "freeShipping": true,
+    "prestige": 4.0
+  },
+  {
+    "productId": 5,
+    "name": "Mini Cama Elastica",
+    "category": "Esportes",
+    "brand": "Starboard",
+    "price": 1800,
+    "quantity": 5,
+    "freeShipping": true,
+    "prestige": 4.0
+  },
+  {
+    "productId": 6,
+    "name": "Camiseta",
+    "category": "Esportes",
+    "brand": "Topper",
+    "price": 1800,
+    "quantity": 5,
+    "freeShipping": true,
+    "prestige": 4.0
+  },
+  {
+    "productId": 7,
+    "name": "Redmi Note 9",
+    "category": "Celulares",
+    "brand": "Xiaomi",
+    "price": 1800,
+    "quantity": 5,
+    "freeShipping": true,
+    "prestige": 4.0
+  },
+  {
+    "productId": 8,
+    "name": "Smartwatch",
+    "category": "Celulares",
+    "brand": "Noga",
+    "price": 1800,
+    "quantity": 5,
+    "freeShipping": true,
+    "prestige": 4.0
+  },
+  {
+    "productId": 9,
+    "name": "Camisa",
+    "category": "Roupas",
+    "brand": "Fila",
+    "price": 1800,
+    "quantity": 5,
+    "freeShipping": true,
+    "prestige": 4.0
+  },
+  {
+    "productId": 10,
+    "name": "Calcas",
+    "category": "Roupas",
+    "brand": "Oakley",
+    "price": 1800,
+    "quantity": 5,
+    "freeShipping": true,
+    "prestige": 4.0
+  },
+  {
+    "productId": 11,
+    "name": "Meias",
+    "category": "Roupas",
+    "brand": "Gonew",
+    "price": 1800,
+    "quantity": 5,
+    "freeShipping": true,
+    "prestige": 4.0
+  },
+  {
+    "productId": 12,
+    "name": "Short",
+    "category": "Roupas",
+    "brand": "Lacoste",
+    "price": 1800,
+    "quantity": 5,
+    "freeShipping": true,
+    "prestige": 4.0
+  },
+  {
+    "productId": 216678900,
+    "name": "Product 1",
+    "category": "category",
+    "brand": "brand 1",
+    "price": 1100,
+    "quantity": 2,
+    "freeShipping": true,
+    "prestige": 4.5
+  },
+  {
+    "productId": 212597662,
+    "name": "Product X",
+    "category": "category",
+    "brand": "brand 1",
+    "price": 1100,
+    "quantity": 2,
+    "freeShipping": true,
+    "prestige": 4.5
+  },
+  {
+    "productId": 197426965,
+    "name": "Product ASX",
+    "category": "category",
+    "brand": "brand 1",
+    "price": 1100,
+    "quantity": 2,
+    "freeShipping": true,
+    "prestige": 4.5
+  }
+]

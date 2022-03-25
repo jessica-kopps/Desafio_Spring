@@ -11,21 +11,13 @@ import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
-
+    @Autowired
     private ProductRepository  productRepository;
-
-    public ProductService(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
-
-    public ProductService() {
-
-    }
 
     public List<Product> getProductsByCategory(String category){
         List<Product> productList = productRepository.findAll();
         return productList.stream()
-                .filter(product -> product.getCategory().toLowerCase().equals(category.toLowerCase()))
+                .filter(product -> product.getCategory().equalsIgnoreCase(category))
                 .collect(Collectors.toList());
     }
 
