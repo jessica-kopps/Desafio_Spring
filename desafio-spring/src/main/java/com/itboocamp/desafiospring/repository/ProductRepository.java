@@ -18,7 +18,7 @@ public class ProductRepository implements IRepository<Long, Product> {
     @Override
     public List<Product> findAll() {
         JsonFileUtil<Product> jsonFile = new JsonFileUtil<Product>(FILENAME);
-        return jsonFile.read();
+        return jsonFile.read(Product.class);
     }
 
     @Override
