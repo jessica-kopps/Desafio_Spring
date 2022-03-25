@@ -2,10 +2,14 @@ package com.itboocamp.desafiospring.service;
 
 import com.itboocamp.desafiospring.controller.exception.purchase.InsufficientQuantityException;
 import com.itboocamp.desafiospring.controller.exception.purchase.NotFoundException;
+import com.itboocamp.desafiospring.controller.validator.product.QuantityProductValidator;
+import com.itboocamp.desafiospring.controller.validator.purchase.QuantityProductPurchaseValidator;
+import com.itboocamp.desafiospring.dto.mapper.ProductDTOMapper;
 import com.itboocamp.desafiospring.dto.request.ProductPurchaseRequestDTO;
 import com.itboocamp.desafiospring.dto.request.PurchaseRequestDTO;
 import com.itboocamp.desafiospring.entity.Product;
 import com.itboocamp.desafiospring.entity.Purchase;
+import com.itboocamp.desafiospring.entity.mapper.EntityMapper;
 import com.itboocamp.desafiospring.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +31,9 @@ public class PurchaseService {
 
         for (ProductPurchaseRequestDTO productPurchase : productPurchaseRequestDTOList) {
             Product product = productRepository.findById(productPurchase.getProductId());
+            QuantityProductPurchaseValidator quantityValidator = new QuantityProductPurchaseValidator(productPurchase);
+            quantityValidator.validator();
+
             if (product == null) {
                 throw new NotFoundException("Product not found! Purchase declined.");
             }
