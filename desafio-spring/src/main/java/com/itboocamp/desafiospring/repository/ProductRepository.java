@@ -24,7 +24,7 @@ public class ProductRepository implements IRepository<Long, Product> {
     @Override
     public Product insert(Product entity) {
         JsonFileUtil<Product> jsonFile = new JsonFileUtil<Product>(FILENAME);
-        return jsonFile.append(entity);
+        return jsonFile.append(entity, Product.class);
     }
 
     @Override

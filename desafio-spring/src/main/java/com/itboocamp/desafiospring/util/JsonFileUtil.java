@@ -48,16 +48,16 @@ public class JsonFileUtil<T> {
         return tList;
     }
 
-    public T append(T t){
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        List<T> tList = this.read();
-//        tList.add(t);
-//
-//        try {
-//            objectMapper.writeValue(new File(filename), tList);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+    public T append(T t, Class<T> elementClass){
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<T> tList = this.read(elementClass);
+        tList.add(t);
+
+        try {
+            objectMapper.writeValue(new File(filename), tList);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return t;
     }
 }
