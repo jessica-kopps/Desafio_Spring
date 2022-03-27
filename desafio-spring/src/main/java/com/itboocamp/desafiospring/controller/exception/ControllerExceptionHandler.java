@@ -2,6 +2,7 @@ package com.itboocamp.desafiospring.controller.exception;
 
 import com.itboocamp.desafiospring.controller.exception.ValidatorException;
 import com.itboocamp.desafiospring.controller.exception.product.DuplicateProductException;
+import com.itboocamp.desafiospring.controller.exception.purchase.InsufficientQuantityException;
 import com.itboocamp.desafiospring.controller.exception.purchase.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,11 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(ValidatorException.class)
     public ResponseEntity<?> validator(Exception e){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
+
+    @ExceptionHandler(InsufficientQuantityException.class)
+    public ResponseEntity<?> insufficientQuantity(Exception e){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
 

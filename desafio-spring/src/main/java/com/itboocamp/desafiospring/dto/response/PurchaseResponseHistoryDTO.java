@@ -1,5 +1,4 @@
-package com.itboocamp.desafiospring.entity;
-
+package com.itboocamp.desafiospring.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @Setter
 @Getter
-public class  Purchase {
-    private List<Product> products = new ArrayList<>();
-    private BigDecimal totalPrice;
+public class PurchaseResponseHistoryDTO {
+    private List<PurchaseResponseDTO> purchaseResponseDTOList = new ArrayList<>();
+    private BigDecimal total;
 }

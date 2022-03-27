@@ -1,5 +1,9 @@
 package com.itboocamp.desafiospring.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.util.UriComponentsBuilder;
 import com.itboocamp.desafiospring.controller.exception.product.DuplicateProductException;
 import com.itboocamp.desafiospring.controller.validator.IValidator;
@@ -23,10 +27,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "products")
+@Api(value = "products")
 public class ProductController {
     @Autowired
     private ProductService productService;
 
+    @ApiOperation(value = "Realize a criação de um produto.")
     @PostMapping
     public ResponseEntity<ProductResponseDTO> create(@RequestBody ProductRequestDTO request, UriComponentsBuilder uriBuilder) {
         List<IValidator> validators = Arrays.asList(
@@ -54,6 +60,13 @@ public class ProductController {
     }
 
 
+    @ApiOperation(value = "Liste todos os produtos cadastrados")
+    @ApiImplicitParams({
+            @ApiImplicitParam(
+                    name = "sort",
+                    value = "Escolha 0 para alfabético crescente; escolha 1 para alfabético decrescente; escolha 2 para maior a menor preço; e escolha 3 para menor a maior preço."
+            )
+    })
     @GetMapping
     public ResponseEntity<List<ProductResponseDTO>> listProducts(@RequestParam(required = false) Long id,
                                                                  @RequestParam(required = false) String name,

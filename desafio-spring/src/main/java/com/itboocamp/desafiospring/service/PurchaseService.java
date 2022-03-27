@@ -7,6 +7,7 @@ import com.itboocamp.desafiospring.controller.validator.purchase.QuantityProduct
 import com.itboocamp.desafiospring.dto.mapper.ProductDTOMapper;
 import com.itboocamp.desafiospring.dto.request.ProductPurchaseRequestDTO;
 import com.itboocamp.desafiospring.dto.request.PurchaseRequestDTO;
+import com.itboocamp.desafiospring.dto.response.PurchaseResponseDTO;
 import com.itboocamp.desafiospring.entity.Product;
 import com.itboocamp.desafiospring.entity.Purchase;
 import com.itboocamp.desafiospring.entity.mapper.EntityMapper;
@@ -22,6 +23,8 @@ import java.util.List;
 public class PurchaseService {
     @Autowired
     private ProductRepository productRepository;
+
+    private final List<Purchase> historyPurchase = new ArrayList<>();
 
     public Purchase getPurchase(PurchaseRequestDTO purchaseRequestDTO) {
         List<ProductPurchaseRequestDTO> productPurchaseRequestDTOList = purchaseRequestDTO.getArticlesPurchaseRequest();
@@ -52,7 +55,13 @@ public class PurchaseService {
                             .multiply(product.getPrice()));
         }
 
+        historyPurchase.add(new Purchase(products, totalPrice));
+
         return new Purchase(products, totalPrice);
+    }
+
+    public List<Purchase> getAllPurchases() {
+        return historyPurchase;
     }
 
 }
