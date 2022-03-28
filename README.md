@@ -69,11 +69,12 @@ _Para a instalação do projeto, é necessário realizar um clone do seu reposit
    ```
 2. Instale Maven packages
    ```sh
-   maven install
+   cd Desafio_Spring/desafio-spring
+   mvn install
    ```
 3. Crie o pacote target
    ```sh
-   maven package
+   mvn package
    ```
 4. Acesse a pasta target e execute o .jar
     ```sh
